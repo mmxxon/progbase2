@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.16.4)
+project(lab1)
+set(SOURCES main.cpp ./MODULES/dynamic_array.cpp ./MODULES/fs.cpp ./MODULES/list.cpp ./MODULES/stack.cpp)
+add_executable(lab1.out ${SOURCES})
+SET(CMAKE_CXX_FLAGS "-std=c++11 -Wall -pedantic-errors -Werror -Wno-unused")
+include_directories("MODULES/")

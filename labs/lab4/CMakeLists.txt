@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16.4)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+project(lab5)
+file (GLOB SOURCES ./S/*.cpp)
+add_executable(lab5.out ${SOURCES})
+include_directories("./H/")

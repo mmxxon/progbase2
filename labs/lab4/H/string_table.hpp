@@ -1,4 +1,6 @@
-#pragma once
+#ifndef STRING_TABLE_H
+#define STRING_TABLE_H
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -15,3 +17,5 @@ public:
   string& at(int rowIndex, int colIndex);
   void print();
 };
+
+#endif    // STRING_TABLE_H

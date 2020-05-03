@@ -1,4 +1,6 @@
-#include "csv.h"
+#include "csv.hpp"
+
+using namespace std;
 StringTable Csv_parse(string& csvStr) {
   const char* begin = csvStr.c_str();
   bool quotes = 0;

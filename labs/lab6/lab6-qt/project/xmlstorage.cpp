@@ -109,7 +109,7 @@ void XmlStorage::saveFndrs(const vector<Founder>& fndrs) {
   }
   fstream fndrs_file_(name() + "fndrs.xml", ios::out);
   QString str = doc.toString(2);
-  orgs_file_ << str.toStdString();
+  fndrs_file_ << str.toStdString();
   close();
 }
 vector<Founder> XmlStorage::loadFndrs() {

@@ -8,12 +8,8 @@ class XmlStorage: public FileStorage {
   void saveOrgs(const vector<Organisation>& orgs);
   int getNewOrgId();
 
-  vector<Founder> loadFndrs();
-  void saveFndrs(const vector<Founder>& fndrs);
-  int getNewFndrId();
-
 public:
-  explicit XmlStorage(const string& dir_name_ = ""): FileStorage(dir_name_) {}
+  explicit XmlStorage(const string& name_ = ""): FileStorage(name_) {}
 };
 
 #endif    // XMLSTORAGE_HPP

@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <QMessageBox>
+#include <QGraphicsBlurEffect>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

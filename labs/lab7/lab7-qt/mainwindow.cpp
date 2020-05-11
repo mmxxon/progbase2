@@ -223,12 +223,14 @@ void MainWindow::on_add_button_clicked() {
 }
 
 void MainWindow::dialogDisabling() {
+  QGraphicsBlurEffect * effect = new QGraphicsBlurEffect(this);
   if (ui->menuBar->isEnabled()) {
     ui->menuBar->setEnabled(0);
     ui->list_widget->setEnabled(0);
     ui->add_button->setEnabled(0);
     ui->delete_button->setEnabled(0);
     ui->edit_button->setEnabled(0);
+    MainWindow::setGraphicsEffect(effect);
   } else {
     ui->menuBar->setEnabled(1);
     ui->list_widget->setEnabled(1);
@@ -237,6 +239,7 @@ void MainWindow::dialogDisabling() {
       ui->delete_button->setEnabled(1);
       ui->edit_button->setEnabled(1);
     }
+    MainWindow::setGraphicsEffect(0);
   }
 }
 

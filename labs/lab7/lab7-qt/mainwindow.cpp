@@ -115,7 +115,6 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
     ui->delete_button->setIconSize(QSize(button_size / 2, button_size / 2));
 
     if (width > 750 && height > 320) {
-      qDebug() << width << " " << height;
       ui->label_label->setFixedWidth(width / 5);
       ui->label_label->setFixedHeight(width / 10);
 

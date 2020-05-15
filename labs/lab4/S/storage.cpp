@@ -1,6 +1,7 @@
 #include "storage.hpp"
 
 #include "csv.hpp"
+
 #include <string>
 
 using namespace std;
@@ -9,7 +10,7 @@ FileStorage::FileStorage(const string& dir_name) { dir_name_ = dir_name; }
 string FileStorage::name() const { return dir_name_; }
 static vector<Organisation> tableToOrg(StringTable& table) {
   vector<Organisation> orgs;
-  for (int i = 1; i < (int)table.size_rows(); i++) {
+  for (int i = 1; i < (int) table.size_rows(); i++) {
     int row = -1;
     Organisation org;
     org.id = atoi(table.at(i, ++row).c_str());
@@ -26,7 +27,7 @@ static StringTable OrgToTable(vector<Organisation> orgs) {
   table.at(0, 1) = "country";
   table.at(0, 2) = "label";
   table.at(0, 3) = "founder(s)";
-  for (int i = 0; i < (int)orgs.size(); i++) {
+  for (int i = 0; i < (int) orgs.size(); i++) {
     int row = -1;
     table.at(1 + i, ++row) = to_string(orgs[i].id);
     table.at(1 + i, ++row) = orgs[i].country;
@@ -39,9 +40,7 @@ bool FileStorage::open() {
   orgs_file_.open(name() + "orgs.csv");
   return isOpen();
 }
-void FileStorage::close() {
-  orgs_file_.close();
-}
+void FileStorage::close() { orgs_file_.close(); }
 
 bool FileStorage::isOpen() const {
   if (orgs_file_.is_open()) return 1;
@@ -123,8 +122,8 @@ int FileStorage::getNewOrgId() {
     cout << "Id file cannot be opened" << endl;
     cout << "Getting new id from items" << endl;
     vector<Organisation> orgs = getAllOrgs();
-    for ( auto &i : orgs) {
-      if (i.id >= tmp ) tmp = i.id + 1;
+    for (auto& i: orgs) {
+      if (i.id >= tmp) tmp = i.id + 1;
     }
   } else {
     id >> tmp;

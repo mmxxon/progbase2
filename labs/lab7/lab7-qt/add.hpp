@@ -3,14 +3,12 @@
 
 #include <QWidget>
 
-class add : public QWidget
-{
+class add: public QWidget {
   Q_OBJECT
 public:
-  explicit add(QWidget *parent = nullptr);
+  explicit add(QWidget* parent = nullptr);
 
 signals:
-
 };
 
-#endif // ADD_HPP
+#endif    // ADD_HPP

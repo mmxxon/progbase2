@@ -3,6 +3,7 @@
 
 #include "Organisations.h"
 #include "dynamic_array.h"
+
 #include <iomanip>
 #include <iostream>
 using namespace std;
@@ -25,7 +26,7 @@ public:
   bool empty();
   void clear();
   void print();
-  Organisation &operator[](int i);
+  Organisation& operator[](int i);
   int getMaxWidth(int val = 0);
 };
 #endif /* end of include guard: __LIST2_H */

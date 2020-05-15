@@ -4,11 +4,11 @@
 #include "organisation.hpp"
 #include "string_table.hpp"
 
+#include <QFile>
+#include <filesystem>
 #include <fstream>
 #include <optional>
 #include <vector>
-#include <filesystem>
-#include <QFile>
 
 using namespace std;
 

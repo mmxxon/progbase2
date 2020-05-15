@@ -15,14 +15,14 @@ public:
   ~List();
   int size();
 
-  float get( int index );
-  void set( int index, float value );
-  void insert( int index, float value );
-  void remove_at( int index );
-  void push_back( float value );
-  void remove( float value );
-  int index_of( float value );
-  bool contains( float value );
+  float get(int index);
+  void set(int index, float value);
+  void insert(int index, float value);
+  void remove_at(int index);
+  void push_back(float value);
+  void remove(float value);
+  int index_of(float value);
+  bool contains(float value);
   bool empty();
   void clear();
   void print();

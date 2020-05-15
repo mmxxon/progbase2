@@ -2,10 +2,10 @@
 #define CUI_H
 #include "storage.hpp"
 
+#include <iomanip>
 #include <termios.h>
 #include <unistd.h>
 #include <vector>
-#include <iomanip>
 
 #define blu_f "\033[32m"
 #define yel_f "\033[33m"

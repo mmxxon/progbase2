@@ -6,6 +6,7 @@
 #define LAB3_BINTREE_H
 
 #include "Organisation.h"
+
 #include <string>
 struct Node {
   string value;    // set in ctor
@@ -13,9 +14,9 @@ struct Node {
   Node* right;
 
   explicit Node(Organisation v): left(nullptr), right(nullptr) { value = v; }
-}i
+} i
 
-class BinTree {
+  class BinTree {
   Node* root_ = nullptr;
   size_t size_ = 0;
 

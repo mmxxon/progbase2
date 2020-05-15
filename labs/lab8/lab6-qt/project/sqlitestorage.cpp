@@ -1,6 +1,3 @@
 #include "sqlitestorage.hpp"
 
-SqLiteStorage::SqLiteStorage()
-{
-
-}
+SqLiteStorage::SqLiteStorage() {}

@@ -1,6 +1,3 @@
 #include "add.hpp"
 
-add::add(QWidget *parent) : QWidget(parent)
-{
-
-}
+add::add(QWidget* parent): QWidget(parent) {}

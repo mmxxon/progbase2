@@ -14,7 +14,7 @@ public:
   Stack();
   ~Stack();
   int size();
-  void push( float value );
+  void push(float value);
   float peek();
   float pop();
   bool empty();

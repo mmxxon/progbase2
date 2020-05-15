@@ -5,18 +5,18 @@
 #include <unistd.h>
 using std::string, std::cout, std::endl;
 class StringTable {
-  std::string * cells_ = nullptr;   // allocated memory for matrix
+  std::string* cells_ = nullptr;    // allocated memory for matrix
   int nrows_ = 0;
   int ncols_ = 0;
 
-  public:
+public:
   StringTable(int rows, int cols);
   ~StringTable();
 
   int size_rows();
   int size_columns();
 
-  string & at(int rowIndex, int colIndex);
+  string& at(int rowIndex, int colIndex);
 
   void print();
 };

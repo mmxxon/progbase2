@@ -1,24 +1,24 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
-#include "ui_mainwindow.h"
 #include "adddialog.hpp"
-#include "editdialog.hpp"
 #include "csvstorage.hpp"
+#include "editdialog.hpp"
+#include "ui_mainwindow.h"
 
 #include <QDebug>
 #include <QDialog>
 #include <QFileDialog>
-#include <QPushButton>
+#include <QGraphicsBlurEffect>
 #include <QListWidget>
 #include <QMainWindow>
+#include <QMessageBox>
+#include <QPushButton>
 #include <QString>
 #include <QtGui>
 #include <fstream>
 #include <stdio.h>
 #include <string.h>
-#include <QMessageBox>
-#include <QGraphicsBlurEffect>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,15 +35,16 @@ public:
 
 signals:
   void org_to_update(QListWidgetItem*);
+
 protected:
   void resizeEvent(QResizeEvent*);
 
 private slots:
   void dialogDisabling();
 
-  void add_orgs(const vector<Organisation> & orgs);
+  void add_orgs(const vector<Organisation>& orgs);
 
-  void org_push(Organisation *);
+  void org_push(Organisation*);
 
   void org_update(Organisation*);
 
@@ -68,14 +69,14 @@ private slots:
 
   void on_delete_button_clicked();
 
-  void on_list_widget_itemClicked(QListWidgetItem *);
+  void on_list_widget_itemClicked(QListWidgetItem*);
 
-  void on_list_widget_itemActivated(QListWidgetItem *);
+  void on_list_widget_itemActivated(QListWidgetItem*);
 
 private:
   Ui::MainWindow* ui;
-  AddDialog * adddialog;
-  EditDialog * editdialog;
+  AddDialog* adddialog;
+  EditDialog* editdialog;
 
   FileStorage* storage_ = nullptr;
   QString file_name;

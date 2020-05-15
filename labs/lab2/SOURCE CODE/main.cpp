@@ -11,11 +11,11 @@
 #include <iostream>
 using namespace std;
 
-List createEntityListFromTable(StringTable &csvTable);
-StringTable processEntities(List &items,
-                            Organisation n); // T depends on your variant
+List createEntityListFromTable(StringTable& csvTable);
+StringTable processEntities(List& items,
+                            Organisation n);    // T depends on your variant
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   Check_CountOfArgs(argc, 3);
   string csv_file = argv[1];
   string out_file = argv[2];
@@ -41,7 +41,7 @@ int checknum(string str) {
     cout << "\nDate is not num\n";
   exit(1);
 }
-List createEntityListFromTable(StringTable &table) {
+List createEntityListFromTable(StringTable& table) {
   List list;
   Organisation org;
   for (int i = 1; i < table.size_rows(); i++) {
@@ -56,10 +56,9 @@ List createEntityListFromTable(StringTable &table) {
   return list;
 }
 
-StringTable processEntities(List &items, Organisation n) {
+StringTable processEntities(List& items, Organisation n) {
   for (int i = items.size() - 1; i >= 0; i--)
-    if (items[i].country != n.country)
-      items.remove_at(i);
+    if (items[i].country != n.country) items.remove_at(i);
   StringTable table(items.size() + 1, 6);
   for (size_t i = 0; i < items.size(); i++) {
     table.at(i + 1, 0) = items[i].country;

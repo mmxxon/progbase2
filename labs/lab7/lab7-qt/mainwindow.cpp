@@ -14,32 +14,30 @@ MainWindow::MainWindow(QWidget* parent):
   setWindowIcon(window_icon);
 }
 
-MainWindow::~MainWindow()
-{
-    if(storage_!=nullptr)
-        delete storage_;
-    delete ui;
+MainWindow::~MainWindow() {
+  if (storage_ != nullptr) delete storage_;
+  delete ui;
 }
 
-void MainWindow::add_orgs(const vector<Organisation> & orgs) {
-    for(const Organisation & org : orgs) {
-        QVariant var=QVariant::fromValue(org);
-        QListWidgetItem * item=new QListWidgetItem();
-        item->setTextAlignment(Qt::AlignHCenter);
-        item->setText(QString::fromStdString(org.label));
-        item->setData(Qt::UserRole,var);
-        ui->list_widget->addItem(item);
-    }
+void MainWindow::add_orgs(const vector<Organisation>& orgs) {
+  for (const Organisation& org: orgs) {
+    QVariant var = QVariant::fromValue(org);
+    QListWidgetItem* item = new QListWidgetItem();
+    item->setTextAlignment(Qt::AlignHCenter);
+    item->setText(QString::fromStdString(org.label));
+    item->setData(Qt::UserRole, var);
+    ui->list_widget->addItem(item);
+  }
 }
 
-void MainWindow::org_push(Organisation * org) {
+void MainWindow::org_push(Organisation* org) {
   storage_->insertOrg(*org);
   vector<Organisation> orgs = storage_->getAllOrgs();
 
-  QListWidgetItem * item = new QListWidgetItem();
+  QListWidgetItem* item = new QListWidgetItem();
 
   QVariant var;
-  var.setValue(orgs.at(orgs.size()-1));
+  var.setValue(orgs.at(orgs.size() - 1));
 
   QString label = QString::fromStdString(orgs.at(orgs.size() - 1).label);
   item->setText(label);
@@ -49,8 +47,8 @@ void MainWindow::org_push(Organisation * org) {
   ui->list_widget->addItem(item);
 }
 
-void MainWindow::org_update(Organisation*org) {
-  QListWidgetItem * item = ui->list_widget->selectedItems().at(0);
+void MainWindow::org_update(Organisation* org) {
+  QListWidgetItem* item = ui->list_widget->selectedItems().at(0);
   Organisation orgn = item->data(Qt::UserRole).value<Organisation>();
   org->id = orgn.id;
   if (!storage_->updateOrg(*org)) {
@@ -130,12 +128,8 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 }
 
 // menu bar
-void MainWindow::on_new_action_triggered() {
-  on_new_button_clicked();
-}
-void MainWindow::on_open_action_triggered() {
-  on_open_button_clicked();
-}
+void MainWindow::on_new_action_triggered() { on_new_button_clicked(); }
+void MainWindow::on_open_action_triggered() { on_open_button_clicked(); }
 
 void MainWindow::on_back_action_triggered() {
   ui->stackedWidget->setCurrentIndex(0);
@@ -146,10 +140,10 @@ void MainWindow::on_back_action_triggered() {
   ui->list_widget->setEnabled(0);
   ui->back_action->setVisible(0);
   ui->back_action->setEnabled(0);
-  resize(width()-1,height()-1);
+  resize(width() - 1, height() - 1);
 }
 
-void MainWindow::on_exit_action_triggered() {close();}
+void MainWindow::on_exit_action_triggered() { close(); }
 
 // widget 1
 void MainWindow::on_new_button_clicked() {
@@ -158,8 +152,38 @@ void MainWindow::on_new_button_clicked() {
   QString dir =
     QDir(QDir::currentPath())
       .cleanPath(QDir(QDir::currentPath()).absoluteFilePath("../../data"));
-  QString path = dialog.getSaveFileName(this, "Select new path",
-                                        dir + "/organisations.csv",
+  QString path =
+    dialog.getSaveFileName(this, "Select new path", dir + "/organisations.csv",
+                           "Storage (*.csv);;All (*.*)");
+  if (path.length() == 0) return;
+  qDebug() << "Path: " << path;
+  ui->label_country->setEnabled(1);
+  ui->label_founders->setEnabled(1);
+  ui->label_field->setEnabled(1);
+  ui->add_button->setEnabled(1);
+  ui->list_widget->setEnabled(1);
+  ui->back_action->setVisible(1);
+  ui->back_action->setEnabled(1);
+  if (storage_) {
+    delete storage_;
+    for (int i = 2; i < ui->list_widget->count(); i++) {
+      delete ui->list_widget->item(i);
+    }
+  }
+  file_name = path;
+  storage_ = new CsvStorage(path.toStdString());
+  add_orgs(storage_->getAllOrgs());
+  ui->stackedWidget->setCurrentIndex(1);
+  resize(width() - 1, height() - 1);
+}
+
+void MainWindow::on_open_button_clicked() {
+  QString dir =
+    QDir(QDir::currentPath())
+      .cleanPath(QDir(QDir::currentPath()).absoluteFilePath("../../data"));
+  QFileDialog dialog(this);
+  dialog.setFileMode(QFileDialog::ExistingFile);
+  QString path = dialog.getOpenFileName(this, "Select path to file", dir,
                                         "Storage (*.csv);;All (*.*)");
   if (path.length() == 0) return;
   qDebug() << "Path: " << path;
@@ -180,34 +204,7 @@ void MainWindow::on_new_button_clicked() {
   storage_ = new CsvStorage(path.toStdString());
   add_orgs(storage_->getAllOrgs());
   ui->stackedWidget->setCurrentIndex(1);
-  resize(width()-1,height()-1);
-}
-
-void MainWindow::on_open_button_clicked() {
-  QString dir = QDir(QDir::currentPath()).cleanPath(QDir(QDir::currentPath()).absoluteFilePath("../../data"));
-  QFileDialog dialog(this);
-  dialog.setFileMode(QFileDialog::ExistingFile);
-  QString path = dialog.getOpenFileName(this,"Select path to file", dir, "Storage (*.csv);;All (*.*)");
-  if (path.length()==0) return;
-  qDebug() << "Path: " << path;
-  ui->label_country->setEnabled(1);
-  ui->label_founders->setEnabled(1);
-  ui->label_field->setEnabled(1);
-  ui->add_button->setEnabled(1);
-  ui->list_widget->setEnabled(1);
-  ui->back_action->setVisible(1);
-  ui->back_action->setEnabled(1);
-  if (storage_) {
-    delete storage_;
-    for (int i = 2; i < ui->list_widget->count(); i++) {
-      delete ui->list_widget->item(i);
-    }
-  }
-  file_name = path;
-  storage_ = new CsvStorage(path.toStdString());
-  add_orgs(storage_->getAllOrgs());
-  ui->stackedWidget->setCurrentIndex(1);
-  resize(width()-1,height()-1);
+  resize(width() - 1, height() - 1);
 }
 
 // widget 2
@@ -217,12 +214,13 @@ void MainWindow::on_add_button_clicked() {
   adddialog = new AddDialog(this);
   dialogDisabling();
   adddialog->show();
-  connect(adddialog, SIGNAL(addOrg(Organisation*)), SLOT(org_push(Organisation *)));
+  connect(adddialog, SIGNAL(addOrg(Organisation*)),
+          SLOT(org_push(Organisation*)));
   connect(adddialog, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
 }
 
 void MainWindow::dialogDisabling() {
-  QGraphicsBlurEffect * effect = new QGraphicsBlurEffect(this);
+  QGraphicsBlurEffect* effect = new QGraphicsBlurEffect(this);
   if (ui->menuBar->isEnabled()) {
     ui->menuBar->setEnabled(0);
     ui->list_widget->setEnabled(0);
@@ -234,7 +232,7 @@ void MainWindow::dialogDisabling() {
     ui->menuBar->setEnabled(1);
     ui->list_widget->setEnabled(1);
     ui->add_button->setEnabled(1);
-    if (ui->list_widget->selectedItems().count()!=0) {
+    if (ui->list_widget->selectedItems().count() != 0) {
       ui->delete_button->setEnabled(1);
       ui->edit_button->setEnabled(1);
     }
@@ -246,8 +244,10 @@ void MainWindow::on_edit_button_clicked() {
   editdialog = new EditDialog(this);
   dialogDisabling();
   editdialog->show();
-  connect(this, SIGNAL(org_to_update(QListWidgetItem*)), editdialog, SLOT(edit_org(QListWidgetItem*)));
-  connect(editdialog, SIGNAL(upd_org(Organisation*)),this, SLOT(org_update(Organisation*)));
+  connect(this, SIGNAL(org_to_update(QListWidgetItem*)), editdialog,
+          SLOT(edit_org(QListWidgetItem*)));
+  connect(editdialog, SIGNAL(upd_org(Organisation*)), this,
+          SLOT(org_update(Organisation*)));
   connect(editdialog, SIGNAL(disableToggle()), SLOT(dialogDisabling()));
 
   emit(org_to_update(ui->list_widget->selectedItems().at(0)));
@@ -255,20 +255,17 @@ void MainWindow::on_edit_button_clicked() {
 
 void MainWindow::on_delete_button_clicked() {
   QMessageBox::StandardButton answer;
-  answer = QMessageBox::question(
-        this,
-        "Deletion",
-        "Really?",
-        QMessageBox::Yes|QMessageBox::No);
+  answer = QMessageBox::question(this, "Deletion", "Really?",
+                                 QMessageBox::Yes | QMessageBox::No);
   if (answer == QMessageBox::No) return;
   QList<QListWidgetItem*> items = ui->list_widget->selectedItems();
-  if (items.at(0) == NULL ) return;
-  foreach (QListWidgetItem * item, items) {
-        items = ui->list_widget->selectedItems();
-        Organisation org = item->data(Qt::UserRole).value<Organisation>();
-        qDebug() << "deletion: " << org.id;
-        storage_->removeOrg(org.id);
-        delete ui->list_widget->takeItem(ui->list_widget->row(item));
+  if (items.at(0) == NULL) return;
+  foreach (QListWidgetItem* item, items) {
+    items = ui->list_widget->selectedItems();
+    Organisation org = item->data(Qt::UserRole).value<Organisation>();
+    qDebug() << "deletion: " << org.id;
+    storage_->removeOrg(org.id);
+    delete ui->list_widget->takeItem(ui->list_widget->row(item));
   }
   vector<Organisation> orgs = storage_->getAllOrgs();
   if (orgs.empty()) {
@@ -280,19 +277,17 @@ void MainWindow::on_delete_button_clicked() {
     ui->founders_field->setText("");
   } else {
     items = ui->list_widget->selectedItems();
-    QListWidgetItem * item = items.at(0);
+    QListWidgetItem* item = items.at(0);
     QVariant var = item->data(Qt::UserRole);
     Organisation org = var.value<Organisation>();
 
     ui->label_field->setText(QString::fromStdString(org.label));
     ui->country_field->setText(QString::fromStdString(org.country));
     ui->founders_field->setText(QString::fromStdString(org.founders));
-
   }
-
 }
 
-void MainWindow::on_list_widget_itemClicked(QListWidgetItem *item) {
+void MainWindow::on_list_widget_itemClicked(QListWidgetItem* item) {
   ui->delete_button->setEnabled(1);
   ui->add_button->setEnabled(1);
   ui->edit_button->setEnabled(1);
@@ -302,6 +297,6 @@ void MainWindow::on_list_widget_itemClicked(QListWidgetItem *item) {
   ui->founders_field->setText(QString::fromStdString(org.founders));
 }
 
-void MainWindow::on_list_widget_itemActivated(QListWidgetItem *item) {
+void MainWindow::on_list_widget_itemActivated(QListWidgetItem* item) {
   on_list_widget_itemClicked(item);
 }

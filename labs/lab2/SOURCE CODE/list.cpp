@@ -7,16 +7,10 @@
 #define color6 "\033[36m"
 #define color7 "\033[37m"
 #define restt "\033[0m"
-List::List(): _array {5} {
-  size_ = 0;
-}
+List::List(): _array {5} { size_ = 0; }
 List::~List() {}
-int List::size() {
-  return size_;
-}
-Organisation& List::operator[](int i) {
-  return _array[i];
-}
+int List::size() { return size_; }
+Organisation& List::operator[](int i) { return _array[i]; }
 void List::insert(int index, Organisation value) {
   _array.resize(_array.size() + 1);
   for (int i = 0; size_ - i > index; i++)
@@ -33,46 +27,35 @@ void List::remove_at(int index) {
 void List::push_back(Organisation value) {
   _array[size_] = value;
   size_++;
-  if (size_ == _array.size())
-    _array.resize(_array.size() + 1);
+  if (size_ == _array.size()) _array.resize(_array.size() + 1);
 }
 void List::remove(Organisation value) {
   for (int i = 0; i < size_; i++) {
-    if (_array[i] == value) {
-      remove_at(i);
-    }
+    if (_array[i] == value) { remove_at(i); }
   }
 }
 int List::index_of(Organisation value) {
   for (int i = 0; i < size_; i++) {
-    if (_array[i] == value)
-      return i;
+    if (_array[i] == value) return i;
   }
   return -1;
 }
 bool List::contains(Organisation value) {
   for (int i = 0; i < size_; i++) {
-    if (_array[i] == value)
-      return true;
+    if (_array[i] == value) return true;
   }
   return false;
 }
-bool List::empty() {
-  return size_ == 0;
-}
-void List::clear() {
-  size_ = 0;
-}
+bool List::empty() { return size_ == 0; }
+void List::clear() { size_ = 0; }
 void List::print() {
   int l1 = 5;
   for (int i = 0; i < size_; i++) {
-    if (_array[i].label.length() > l1)
-      l1 = _array[i].label.length();
+    if (_array[i].label.length() > l1) l1 = _array[i].label.length();
   }
   int l2 = 8;
   for (int i = 0; i < size_; i++) {
-    if (_array[i].founders.length() > l2)
-      l2 = _array[i].founders.length();
+    if (_array[i].founders.length() > l2) l2 = _array[i].founders.length();
   }
   cout << color1 << left << setw(9) << "Country" << restt << color2 << left
        << setw(l1 + 3) << "Label" << restt << color4 << left << setw(16)

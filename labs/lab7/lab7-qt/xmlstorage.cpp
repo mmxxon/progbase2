@@ -30,7 +30,7 @@ void XmlStorage::saveOrgs(const vector<Organisation>& orgs) {
   }
   doc.appendChild(root);
   if (!open()) {
-    qDebug() <<"Error on opening";
+    qDebug() << "Error on opening";
     exit(1);
   }
   fstream orgs_file_(name(), ios::out);
@@ -40,7 +40,7 @@ void XmlStorage::saveOrgs(const vector<Organisation>& orgs) {
 }
 vector<Organisation> XmlStorage::loadOrgs() {
   if (!open()) {
-    qDebug() <<"Error on opening";
+    qDebug() << "Error on opening";
     exit(1);
   }
   string s, temp;

@@ -3,7 +3,7 @@
 #include "Organisations.h"
 
 class DynamicArray {
-  Organisation *items_;
+  Organisation* items_;
   int capacity_;
 
 public:
@@ -11,7 +11,7 @@ public:
   ~DynamicArray();
   int size();
   void resize(int capacity);
-  Organisation &operator[](int i);
+  Organisation& operator[](int i);
 };
 
 #endif /* end of include guard: __DYNARR2_H */

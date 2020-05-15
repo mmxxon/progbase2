@@ -1,5 +1,3 @@
 #include "storage.hpp"
 
-Storage::Storage() {
-
-}
+Storage::Storage() {}

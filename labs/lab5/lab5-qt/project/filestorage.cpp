@@ -9,7 +9,7 @@ FileStorage::FileStorage(const string& dir_name) { dir_name_ = dir_name; }
 string FileStorage::name() const { return dir_name_; }
 static vector<Organisation> tableToOrg(StringTable& table) {
   vector<Organisation> orgs;
-  for (int i = 1; i < (int)table.size_rows(); i++) {
+  for (int i = 1; i < (int) table.size_rows(); i++) {
     int row = -1;
     Organisation org;
     org.id = atoi(table.at(i, ++row).c_str());
@@ -22,7 +22,7 @@ static vector<Organisation> tableToOrg(StringTable& table) {
 }
 static vector<Founder> tableToFndr(StringTable& table) {
   vector<Founder> fndrs;
-  for (int i = 1; i < (int)table.size_rows(); i++) {
+  for (int i = 1; i < (int) table.size_rows(); i++) {
     int row = -1;
     Founder fndr;
     fndr.id = atoi(table.at(i, ++row).c_str());
@@ -39,7 +39,7 @@ static StringTable OrgToTable(vector<Organisation> orgs) {
   table.at(0, 1) = "country";
   table.at(0, 2) = "label";
   table.at(0, 3) = "founder(s)";
-  for (int i = 0; i < (int)orgs.size(); i++) {
+  for (int i = 0; i < (int) orgs.size(); i++) {
     int row = -1;
     table.at(1 + i, ++row) = to_string(orgs[i].id);
     table.at(1 + i, ++row) = orgs[i].country;
@@ -54,7 +54,7 @@ static StringTable FndrToTable(vector<Founder> fndrs) {
   table.at(0, 1) = "name";
   table.at(0, 2) = "age";
   table.at(0, 3) = "wealth";
-  for (int i = 0; i < (int)fndrs.size(); i++) {
+  for (int i = 0; i < (int) fndrs.size(); i++) {
     int row = -1;
     table.at(1 + i, ++row) = to_string(fndrs[i].id);
     table.at(1 + i, ++row) = fndrs[i].name;
@@ -154,8 +154,8 @@ int FileStorage::getNewOrgId() {
     cout << "Id file cannot be opened" << endl;
     cout << "Getting new id from items" << endl;
     vector<Organisation> orgs = getAllOrgs();
-    for ( auto &i : orgs) {
-      if (i.id >= tmp ) tmp = i.id + 1;
+    for (auto& i: orgs) {
+      if (i.id >= tmp) tmp = i.id + 1;
     }
   } else {
     id >> tmp;
@@ -188,7 +188,7 @@ void FileStorage::saveFndrs(const vector<Founder>& fndr) {
     exit(1);
   }
   close();
-  fndrs_file_.open( name() + "fndrs.csv", ios::out);
+  fndrs_file_.open(name() + "fndrs.csv", ios::out);
   fndrs_file_ << str;
   close();
 }
@@ -241,8 +241,8 @@ int FileStorage::getNewFndrId() {
     cout << "Id file cannot be opened" << endl;
     cout << "Getting new id from items" << endl;
     vector<Founder> fndrs = getAllFndrs();
-    for ( auto &i : fndrs) {
-      if (i.id >= tmp ) tmp = i.id + 1;
+    for (auto& i: fndrs) {
+      if (i.id >= tmp) tmp = i.id + 1;
     }
   } else {
     id >> tmp;

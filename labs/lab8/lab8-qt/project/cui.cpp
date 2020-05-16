@@ -50,7 +50,7 @@ void Cui::OrgsMenu(int org_id) {
 }
 void Cui::OrgsUpdateMenu(int org_id) {
   int key;
-  optional<Organisation> org{ storage_->getOrgById(org_id) };
+  optional<Organisation> org {storage_->getOrgById(org_id)};
   if (!org) {
     cout << "\033[2J\033[H";
     cout << red_f "Wrong id" res << endl;

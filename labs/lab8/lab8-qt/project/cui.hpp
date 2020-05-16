@@ -1,9 +1,8 @@
 #ifndef CUI_H
 #define CUI_H
 #include "csvstorage.hpp"
-#include "xmlstorage.hpp"
 #include "sqlitestorage.hpp"
-
+#include "xmlstorage.hpp"
 
 #define blu_f "\033[32m"
 #define yel_f "\033[33m"

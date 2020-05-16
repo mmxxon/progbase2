@@ -1,17 +1,16 @@
 #ifndef STORAGE_HPP
 #define STORAGE_HPP
 
-#include <string>
-#include <QtDebug>
-#include <vector>
+#include "founder.hpp"
+#include "organisation.hpp"
 
+#include <QtDebug>
+#include <iomanip>
+#include <optional>
 #include <stdio.h>
 #include <string>
-#include <optional>
-#include "organisation.hpp"
-#include "founder.hpp"
-#include <iomanip>
 #include <termios.h>
+#include <vector>
 #ifdef __unix__
 #include <unistd.h>
 #define GetCurrentDir getcwd
@@ -23,8 +22,7 @@
 
 using namespace std;
 
-class Storage
-{
+class Storage {
 private:
   string dir_name_;
 
@@ -54,5 +52,4 @@ public:
   virtual int insertFndr(const Founder&) = 0;
 };
 
-
-#endif // STORAGE_HPP
+#endif    // STORAGE_HPP

@@ -44,14 +44,14 @@ auto main() -> int {
     cui.show();
   } else if (key == 51) {
     if (str == "") str.append("../../data/sqlite/");
-    SqliteStorage st{str};
-    Storage *fs = &st;
+    SqliteStorage st {str};
+    Storage* fs = &st;
     Cui cui {fs};
     cui.show();
   } else {
     cout << "\033[2J\033[H";
-    for (int i=5;i>0;--i) {
-      cout << "\033[H" + string{"Exit on " + to_string(i) + "s"} << endl;
+    for (int i = 5; i > 0; --i) {
+      cout << "\033[H" + string {"Exit on " + to_string(i) + "s"} << endl;
       sleep(1);
     }
     cout << "\033[2J\033[H";

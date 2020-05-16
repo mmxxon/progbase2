@@ -50,10 +50,10 @@ optional<Organisation> SqliteStorage::getOrgById(int id) {
 bool SqliteStorage::updateOrg(const Organisation & org) {
   QSqlQuery q;
   this->open();
-  q.prepare("UPDATE orgs SET country = c, label = l, founders = f WHERE id = :id");
-  q.bindValue("c", QString::fromStdString(org.country));
-  q.bindValue("l", QString::fromStdString(org.label));
-  q.bindValue("f", QString::fromStdString(org.founders));
+  q.prepare("UPDATE orgs SET country = :country, label = :label, founders = :founders WHERE id = :id");
+  q.bindValue(":country", QString::fromStdString(org.country));
+  q.bindValue(":label", QString::fromStdString(org.label));
+  q.bindValue(":founders", QString::fromStdString(org.founders));
   q.bindValue(":id", org.id);
   if (!q.exec() || !q.next()) { this->close(); return false; }
   else { this->close(); return true; }
@@ -61,7 +61,7 @@ bool SqliteStorage::updateOrg(const Organisation & org) {
 bool SqliteStorage::removeOrg(int id) {
   QSqlQuery q;
   this->open();
-  q.prepare("DELETE FROM orgs WHERE if = :id");
+  q.prepare("DELETE FROM orgs WHERE id = :id");
   q.bindValue(":id", id);
   if ( !q.exec() || q.numRowsAffected() == 0 ) { this->close(); return false; }
   else { this->close(); return true; }
@@ -69,10 +69,10 @@ bool SqliteStorage::removeOrg(int id) {
 int SqliteStorage::insertOrg(const Organisation &org) {
   QSqlQuery q;
   this->open();
-  q.prepare("INSERT INTO orgs (country, label, founders) VALUES (c, l, f)");
-  q.bindValue("c", QString::fromStdString(org.country));
-  q.bindValue("l", QString::fromStdString(org.label));
-  q.bindValue("f", QString::fromStdString(org.founders));
+  q.prepare("INSERT INTO orgs (country, label, founders) VALUES (:country, :label, :founders)");
+  q.bindValue(":country", QString::fromStdString(org.country));
+  q.bindValue(":label", QString::fromStdString(org.label));
+  q.bindValue(":founders", QString::fromStdString(org.founders));
   if (!q.exec()) { this->close(); return 0; }
   else { int id = q.lastInsertId().toInt(); this->close(); return id; }
 }
@@ -97,10 +97,10 @@ optional<Founder> SqliteStorage::getFndrById(int id) {
 bool SqliteStorage::updateFndr(const Founder & fndr) {
   QSqlQuery q;
   this->open();
-  q.prepare("UPDATE founders SET name = n, age = a, wealth = w WHERE id = :id");
-  q.bindValue("n", QString::fromStdString(fndr.name));
-  q.bindValue("a", fndr.age);
-  q.bindValue("w", QString::fromStdString(fndr.wealth));
+  q.prepare("UPDATE founders SET name = :name, age = :age, wealth = :wealth WHERE id = :id");
+  q.bindValue(":name", QString::fromStdString(fndr.name));
+  q.bindValue(":age", fndr.age);
+  q.bindValue(":wealth", QString::fromStdString(fndr.wealth));
   q.bindValue(":id", fndr.id);
   if (!q.exec() || q.numRowsAffected() == 0 ) { this->close(); return false; }
   else { this->close(); return true; }
@@ -116,10 +116,10 @@ bool SqliteStorage::removeFndr(int id) {
 int SqliteStorage::insertFndr(const Founder & fndr) {
   QSqlQuery q;
   this->open();
-  q.prepare("INSERT INTO founders SET (name, age, wealth) VALUES (n, a, w)");
-  q.bindValue("n", QString::fromStdString(fndr.name));
-  q.bindValue("a", fndr.age);
-  q.bindValue("w", QString::fromStdString(fndr.wealth));
+  q.prepare("INSERT INTO founders SET (name, age, wealth) VALUES (:name, :age, :wealth)");
+  q.bindValue(":name", QString::fromStdString(fndr.name));
+  q.bindValue(":age", fndr.age);
+  q.bindValue(":wealth", QString::fromStdString(fndr.wealth));
   if (!q.exec()) { this->close(); return 0; }
   else { int id = q.lastInsertId().toInt(); this->close(); return id; }
 }

@@ -274,13 +274,13 @@ void Cui::show() {
     cout << yel_f "MAIN MENU:" res << endl;
     cout << cya_f "[1]" res " Organisations" << endl;
     cout << cya_f "[2]" res " Founders" << endl;
-    cout << cya_f "[3]" res " Exit" << endl;
+    cout << cya_f "[3]" res " Return back" << endl;
     do {
       key = getch();
     } while (49 > key || 51 < key);
     if (key == 51) {
       cout << "\033[2J\033[H";
-      exit(0);
+      return;
     } else if (key == 49) {
       while (1) {
         cout << "\033[2J\033[H";
